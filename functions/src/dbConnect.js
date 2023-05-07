@@ -3,4 +3,4 @@ import { MONGOURI } from '../secrets.js';
 
 export const client = new MongoClient(MONGOURI)
 
-const db = client.db('final-project-bc')
+export const db = client.db('final-project-bc')
