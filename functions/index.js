@@ -1,9 +1,20 @@
-const functions = require("firebase-functions");
+import express from "express"; 
+import cors from "cors"; 
 
-// // Create and deploy your first functions
-// // https://firebase.google.com/docs/functions/get-started
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+import { addPic, deletePic, getAllPics } from "./src/theroses.js"; 
+
+const PORT = 3000
+const app = express()
+
+app.use(express.json())
+app.use(cors())
+
+app.get("/theroses", getAllPics);
+app.post("/theroses", addPic);
+app.delete("/theroses/:docID", deletePic);
+
+
+app.listen(PORT, () => {
+    console.log (`Listening on port: ${PORT}...`)
+})
+
