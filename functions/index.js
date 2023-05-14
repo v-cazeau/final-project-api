@@ -18,9 +18,9 @@ app.get("/", (req,res) => {
 app.get("/theroses/carousel", getAllPics);
 app.get("/theroses", getRegions); 
 app.get("/theroses", getCountries); 
-app.post("/theroses", addPic);
-app.delete("/theroses/:theRoseId", deletePic);
-// app.patch("/theroses/:theRoseId",updatePicCollection)
+app.post("/theroses/upload", addPic);
+app.delete("/theroses/:picId", deletePic);
+// app.patch("/theroses/:picId",updatePicCollection)
 
 // app.listen(PORT, () => {
 //     console.log (`Listening on port: ${PORT}...`)

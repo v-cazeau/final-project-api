@@ -5,8 +5,8 @@ const coll = db.collection("pictures")
 
 //CRUD: GET 
 export async function getAllPics (req,res) {
-    const img = await coll.find({}).toArray();
-    res.send(img)
+    const pic = await coll.find({}).toArray();
+    res.send(pic)
 }
 
 export async function getRegions (req, res) {
@@ -20,29 +20,31 @@ export async function getCountries (req, res) {
 
 //CRUD: POST
 export async function addPic (req,res) {
-    const newImg = req.body; 
-    await coll.insertOne(newImg); 
-    res.status(201).send({message: "new picture added"}); 
+    const newPic = req.body; 
+    await coll.insertOne(newPic); 
+    await getAllPics(req,res); 
+    // res.status(201).send({message: "new picture added"}); 
 }
 
 //CRUD: DELETE
-export async function deletePic(req,res) {
+export async function deletePic (req,res) {
     try {
-    const imgId = {"_id": new ObjectId (req.params.imgId)};
-    await coll.deleteOne(imgId);
+    const picId = {"_id": new ObjectId (req.params.picId)};
+    await coll.deleteOne(picId);
     await getAllPics(req,res); 
     } catch (error) {
+        console.error(error)
     res.status(500).send({error: "Deleted picture for the database."})
     }
 }
 
 //CRUD: UPDATE (add if possible)
 export async function updatePicCollection(req, res) {
-    const imgId = {"_id":new ObjectId (req.params.picId)}; 
+    const picId = {"_id":new ObjectId (req.params.picId)}; 
     const updatePicCollection = {$set: req.body}; 
     const returnOption = { returnNewDocument: true }; 
 
-    const query = await coll.findOneAndUpdate (imgId, updatePicCollection, returnOption); 
+    const query = await coll.findOneAndUpdate (picId, updatePicCollection, returnOption); 
     await getAllPics(req, res)
     res.status(201).send({message: "Picture database has been updated"}); 
     console.table(query.value);
