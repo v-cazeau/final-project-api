@@ -16,8 +16,8 @@ app.get("/", (req,res) => {
 });
 
 app.get("/theroses/carousel/:regionName", getAllPics);
-app.post("/theroses/upload", addPic);
-app.delete("/theroses/:picId", deletePic);
+app.post("/theroses/:regionName/upload", addPic);
+app.delete("/theroses/:regionName/:picId", deletePic);
 
 // app.listen(PORT, () => {
 //     console.log (`Listening on port: ${PORT}...`)
